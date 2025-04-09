@@ -10,5 +10,8 @@ import Combine
 
 protocol MedicallRepository {
     func searchDrugs(keyword: String) -> AnyPublisher<[DrugDTO], Error>
+    func saveDrug(_ entity: MedicineEntity)
+    func getSavedDrugs() -> [MedicineEntity]
+    func deleteDrug(_ entity: MedicineEntity)
 }
 
