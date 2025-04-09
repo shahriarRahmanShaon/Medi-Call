@@ -10,6 +10,10 @@ import Combine
 
 class DrugDetailViewModel: ObservableObject {
     @Published var drug: DrugDetail
+    @Published var isLoading = false
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+
     private let repository: MedicallRepository
     private var cancellables = Set<AnyCancellable>()
 
@@ -28,10 +32,16 @@ class DrugDetailViewModel: ObservableObject {
             suppress: drug.suppress,
             umlscui: drug.umlscui
         )
+        
+        self.isLoading = true
         Just(entity)
             .sink { [weak self] entity in
                 self?.repository.saveDrug(entity)
+                self?.isLoading = false
+                self?.showAlert = true
+                self?.alertMessage = "Data saved successfully"
             }
             .store(in: &cancellables)
     }
 }
+

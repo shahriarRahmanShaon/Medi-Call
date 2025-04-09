@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DrugDetailView: View {
     @StateObject private var viewModel: DrugDetailViewModel
+    @State private var isAlertPresented = false
 
     init(drug: DrugDetail) {
         _viewModel = StateObject(wrappedValue: DrugDetailViewModel(drug: drug))
@@ -41,16 +42,20 @@ struct DrugDetailView: View {
 
                 Spacer(minLength: 20)
 
-                AddToListButton {
+                AddToListButton(isLoading: viewModel.isLoading) {
                     viewModel.addToLocalDatabase()
                 }
             }
             .padding()
+            .alert(isPresented: $viewModel.showAlert) {
+                Alert(title: Text("Success"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
         .navigationTitle("Details")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 
 struct DrugTitleView: View {
@@ -75,17 +80,25 @@ struct DrugDetailRow: View {
 }
 
 struct AddToListButton: View {
+    var isLoading: Bool
     var action: () -> Void
 
     var body: some View {
-        Button("Add Medication to List") {
-            action()
+        Button(action: action) {
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .frame(width: 20, height: 20)
+            } else {
+                Text("Add Medication to List")
+            }
         }
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color.blue)
         .foregroundColor(.white)
         .cornerRadius(12)
+        .disabled(isLoading)
     }
 }
 
