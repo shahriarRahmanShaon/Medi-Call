@@ -18,9 +18,9 @@ struct SearchResultsView: View {
                 ) {
                     ForEach(results) { drug in
                         HStack {
-                            Image(systemName: "pill.fill")
-                                .foregroundColor(.blue)
-                                .padding(.trailing, 5)
+                            Image("icnTray")
+                                .resizable()
+                                .frame(width: 32, height: 32)
                             NavigationLink(destination: DrugDetailView(drug: DTOMapper.mapToDetailModel(from: drug))) {
                                 Text(drug.synonym ?? "")
                             }
