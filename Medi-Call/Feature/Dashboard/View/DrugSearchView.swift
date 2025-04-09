@@ -14,7 +14,7 @@ struct SearchResultsView: View {
         if !results.isEmpty {
             List {
                 Section(header: Text("Search Results")
-                            .padding(.leading, 0)
+                    .padding(.leading, 0)
                 ) {
                     ForEach(results) { drug in
                         HStack {
@@ -55,32 +55,29 @@ struct DrugSearchView: View {
     @StateObject private var viewModel = DashboardViewModel()
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
-
+    
     var body: some View {
         NavigationView {
             VStack {
-                
                 TextField("Search Medication", text: $viewModel.keyword)
                     .padding(.horizontal, 10)
-                                        .padding(.vertical, 8)
-                                        .cornerRadius(8)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
-                                        )
-                                        .focused($isFocused)
-                                        .padding(.horizontal)
-                                        .padding(.top)
+                    .padding(.vertical, 8)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
+                    )
+                    .focused($isFocused)
+                    .padding(.horizontal)
+                    .padding(.top)
                 
                 SearchResultsView(results: viewModel.results)
-                
                 if isFocused {
                     SearchButtonView(isLoading: viewModel.isLoading) {
                         viewModel.searchDrugs()
                     }
                     .padding(.bottom)
                 }
-
                 Spacer()
             }
             .navigationTitle("Search Medication")
@@ -90,7 +87,7 @@ struct DrugSearchView: View {
                 dismiss()
             }) {
                 HStack {
-                    Image(systemName: "arrow.left.circle.fill")
+                    Image(systemName: "arrow.left")
                     Text("Back")
                 }
             })
