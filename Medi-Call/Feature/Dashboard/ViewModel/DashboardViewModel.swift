@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class DashboardViewModel: ObservableObject {
+    @Published var savedMeds: [MedicineEntity] = []
     @Published var keyword: String = ""
     @Published var results: [DrugDTO] = []
     @Published var isLoading: Bool = false
@@ -19,6 +20,16 @@ class DashboardViewModel: ObservableObject {
 
     init(repository: MedicallRepository = MedicallRepositoryImpl()) {
         self.repository = repository
+        fetchSavedMeds()
+    }
+
+    func fetchSavedMeds() {
+        savedMeds = repository.getSavedDrugs()
+    }
+
+    func deleteDrug(_ entity: MedicineEntity) {
+        repository.deleteDrug(entity)
+        fetchSavedMeds()
     }
 
     func searchDrugs() {
@@ -33,6 +44,7 @@ class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 }
+
 
 
 

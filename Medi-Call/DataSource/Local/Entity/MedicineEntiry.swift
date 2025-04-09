@@ -20,4 +20,24 @@ class MedicineEntity: Object, Identifiable {
     override static func primaryKey() -> String? {
         return "id"
     }
+
+    convenience init(
+        id: String,
+        name: String,
+        synonym: String? = nil,
+        tty: String? = nil,
+        language: String? = nil,
+        suppress: String? = nil,
+        umlscui: String? = nil
+    ) {
+        self.init()
+        self.id = id
+        self.name = name
+        self.synonym = synonym
+        self.tty = tty
+        self.language = language
+        self.suppress = suppress
+        self.umlscui = umlscui
+    }
 }
+

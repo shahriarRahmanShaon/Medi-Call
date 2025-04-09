@@ -8,36 +8,42 @@
 import SwiftUI
 
 struct DrugDetailView: View {
-    let drug: DrugDetail
+    @StateObject private var viewModel: DrugDetailViewModel
+
+    init(drug: DrugDetail) {
+        _viewModel = StateObject(wrappedValue: DrugDetailViewModel(drug: drug))
+    }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                DrugTitleView(name: drug.name)
-                
-                if let synonym = drug.synonym {
+                DrugTitleView(name: viewModel.drug.name)
+
+                if let synonym = viewModel.drug.synonym {
                     DrugDetailRow(title: "Synonym", value: synonym)
                 }
 
-                if let tty = drug.tty {
+                if let tty = viewModel.drug.tty {
                     DrugDetailRow(title: "TTY", value: tty)
                 }
 
-                if let language = drug.language {
+                if let language = viewModel.drug.language {
                     DrugDetailRow(title: "Language", value: language)
                 }
 
-                if let suppress = drug.suppress {
+                if let suppress = viewModel.drug.suppress {
                     DrugDetailRow(title: "Suppress", value: suppress)
                 }
 
-                if let umlscui = drug.umlscui {
+                if let umlscui = viewModel.drug.umlscui {
                     DrugDetailRow(title: "UMLS CUI", value: umlscui)
                 }
 
                 Spacer(minLength: 20)
 
-                AddToListButton()
+                AddToListButton {
+                    viewModel.addToLocalDatabase()
+                }
             }
             .padding()
         }
@@ -45,6 +51,7 @@ struct DrugDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 
 struct DrugTitleView: View {
     let name: String
@@ -68,8 +75,11 @@ struct DrugDetailRow: View {
 }
 
 struct AddToListButton: View {
+    var action: () -> Void
+
     var body: some View {
         Button("Add Medication to List") {
+            action()
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -78,3 +88,4 @@ struct AddToListButton: View {
         .cornerRadius(12)
     }
 }
+
