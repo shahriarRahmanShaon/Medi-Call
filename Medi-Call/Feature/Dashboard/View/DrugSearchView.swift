@@ -65,7 +65,7 @@ struct DrugSearchView: View {
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 1)
+                            .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 0.1)
                     )
                     .focused($isFocused)
                     .padding(.horizontal)
@@ -83,11 +83,12 @@ struct DrugSearchView: View {
             .navigationTitle("Search Medication")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
+            .interactiveDismissDisabled()
             .navigationBarItems(leading: Button(action: {
                 dismiss()
             }) {
                 HStack {
-                    Image(systemName: "arrow.left")
+                    Image(systemName: "chevron.left")
                     Text("Back")
                 }
             })
