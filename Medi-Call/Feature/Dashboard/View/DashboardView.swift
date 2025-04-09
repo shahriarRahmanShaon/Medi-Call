@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DashboardView: View {
     @State private var showSearch = false
-
+    @StateObject private var viewModel = DashboardViewModel()
+    
     var body: some View {
         VStack {
             Spacer()
@@ -25,7 +26,7 @@ struct DashboardView: View {
             }
             .padding()
             .sheet(isPresented: $showSearch) {
-                DrugSearchView()
+                DrugSearchView().environmentObject(viewModel)
             }
         }
         .navigationTitle("My Medications")

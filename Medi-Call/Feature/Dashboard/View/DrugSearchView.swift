@@ -52,7 +52,7 @@ struct SearchButtonView: View {
 
 
 struct DrugSearchView: View {
-    @StateObject private var viewModel = DashboardViewModel()
+    @EnvironmentObject private var viewModel: DashboardViewModel
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
     
