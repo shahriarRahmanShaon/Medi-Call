@@ -6,6 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2519B9282DA69CFE00E4F438 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2519B9272DA69CFE00E4F438 /* RealmSwift */; };
+		2519B92B2DA69DF800E4F438 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2519B9272DA69CFE00E4F438 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2519B92A2DA69DF500E4F438 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2519B92B2DA69DF800E4F438 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2519B8862DA66BBF00E4F438 /* Medi-Call.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medi-Call.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2519B9282DA69CFE00E4F438 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +75,7 @@
 				2519B8822DA66BBF00E4F438 /* Sources */,
 				2519B8832DA66BBF00E4F438 /* Frameworks */,
 				2519B8842DA66BBF00E4F438 /* Resources */,
+				2519B92A2DA69DF500E4F438 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -65,6 +86,7 @@
 			);
 			name = "Medi-Call";
 			packageProductDependencies = (
+				2519B9272DA69CFE00E4F438 /* RealmSwift */,
 			);
 			productName = "Medi-Call";
 			productReference = 2519B8862DA66BBF00E4F438 /* Medi-Call.app */;
@@ -94,6 +116,9 @@
 			);
 			mainGroup = 2519B87D2DA66BBE00E4F438;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2519B9242DA69CFE00E4F438 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2519B8872DA66BBF00E4F438 /* Products */;
 			projectDirPath = "";
@@ -324,6 +349,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2519B9242DA69CFE00E4F438 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2519B9272DA69CFE00E4F438 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2519B9242DA69CFE00E4F438 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2519B87E2DA66BBE00E4F438 /* Project object */;
 }
