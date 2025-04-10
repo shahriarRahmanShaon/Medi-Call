@@ -10,18 +10,18 @@ import SwiftUI
 struct DashboardView: View {
     @State private var showSearch = false
     @StateObject private var viewModel = DashboardViewModel()
-
+    
     var body: some View {
         ZStack {
             Color(.systemGroupedBackground)
                 .ignoresSafeArea()
-
+            
             VStack {
                 Text("My Medications")
                     .font(.title).bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-
+                
                 if viewModel.savedMeds.isEmpty {
                     Text("No saved medications.")
                         .foregroundColor(.gray)
@@ -34,7 +34,7 @@ struct DashboardView: View {
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(.orange)
-
+                                
                                 VStack(alignment: .leading) {
                                     Text("Drug Id: \(med.id)").foregroundColor(.gray)
                                     if let synonym = med.synonym {
@@ -55,9 +55,9 @@ struct DashboardView: View {
                     .listStyle(.insetGrouped)
                     .background(Color.clear)
                 }
-
+                
                 Spacer()
-
+                
                 Button(action: {
                     showSearch.toggle()
                 }) {

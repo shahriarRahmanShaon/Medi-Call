@@ -61,18 +61,18 @@ struct DrugSearchView: View {
     @EnvironmentObject var coordinator: AppCoordinator
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
-
+    
     var body: some View {
         NavigationView {
             ZStack {
                 Color(.systemGroupedBackground)
                     .ignoresSafeArea()
-
+                
                 VStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-
+                        
                         TextField("Search Medication", text: $viewModel.keyword)
                             .disableAutocorrection(true)
                             .focused($isFocused)
@@ -87,13 +87,13 @@ struct DrugSearchView: View {
                     )
                     .padding(.horizontal)
                     .padding(.top)
-
+                    
                     SearchResultsView(results: viewModel.results)
-
+                    
                     Spacer(minLength: 80)
                 }
-
-
+                
+                
                 VStack {
                     Spacer()
                     SearchButtonView(isLoading: viewModel.isLoading) {
