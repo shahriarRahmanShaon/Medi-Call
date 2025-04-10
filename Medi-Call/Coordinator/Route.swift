@@ -11,4 +11,8 @@ enum Route: Hashable {
     case dashboard
     case drugSearch
     case drugDetail(DrugDetail)
+    case authLanding
+    case login
+    case register
 }
+

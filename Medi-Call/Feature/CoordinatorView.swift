@@ -12,7 +12,7 @@ struct CoordinatorView: View {
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            coordinator.view(for: .dashboard)
+            coordinator.view(for: .authLanding)
                 .navigationDestination(for: Route.self) { route in
                     coordinator.view(for: route)
                 }
@@ -20,3 +20,4 @@ struct CoordinatorView: View {
         .environmentObject(coordinator)
     }
 }
+

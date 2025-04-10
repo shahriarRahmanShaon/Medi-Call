@@ -15,4 +15,6 @@ protocol Coordinator: ObservableObject {
     func push(_ route: RouteType)
     func pop()
     func popToRoot()
+    func replace(with route: RouteType) 
 }
+

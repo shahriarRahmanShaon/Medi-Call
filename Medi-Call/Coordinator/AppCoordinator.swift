@@ -21,9 +21,16 @@ class AppCoordinator: Coordinator {
     func popToRoot() {
         path.removeLast(path.count)
     }
+
+    func replace(with route: Route) {
+        path = NavigationPath() 
+        path.append(route)
+    }
 }
 
+
 extension AppCoordinator {
+    
     @ViewBuilder
     func view(for route: Route) -> some View {
         switch route {
@@ -33,7 +40,14 @@ extension AppCoordinator {
             DrugSearchView()
         case .drugDetail(let detail):
             DrugDetailView(drug: detail)
+        case .authLanding:
+            AuthLandingView()
+        case .login:
+            LoginView()
+        case .register:
+            RegisterView()
         }
     }
 }
+
 
