@@ -59,6 +59,22 @@ struct LoginView: View {
             .accessibilityIdentifier(AppConstants.Login.AccessibilityIdentifier.loginButton)
             .padding(.horizontal)
             .padding(.bottom, 20)
+            
+            HStack {
+                Text("Don't have an account?")
+                    .foregroundColor(.gray)
+
+                Button(action: {
+                    coordinator.push(.register)
+                }) {
+                    Text("Sign up")
+                        .foregroundColor(.blue)
+                        .fontWeight(.semibold)
+                }
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerTitle)
+            }
+            .padding(.bottom, 30)
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)

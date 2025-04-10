@@ -67,6 +67,21 @@ struct RegisterView: View {
             .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerButton)
             .padding(.horizontal)
             .padding(.bottom, 30)
+            
+            HStack {
+                Text("Already have an account?")
+                    .foregroundColor(.gray)
+
+                Button(action: {
+                    coordinator.push(.login)
+                }) {
+                    Text("Login")
+                        .foregroundColor(.blue)
+                        .fontWeight(.semibold)
+                }
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerTitle)
+            }
+            .padding(.bottom, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
