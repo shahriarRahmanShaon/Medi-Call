@@ -14,28 +14,30 @@ struct SearchResultsView: View {
     var body: some View {
         if !results.isEmpty {
             List {
-                Section(header: Text("Search Results")
+                Section(header: Text(AppConstants.DrugSearch.searchResultsHeader)
                     .padding(.leading, 0)
                 ) {
                     ForEach(results) { drug in
                         HStack {
-                            Image("icnTray")
+                            Image(AppConstants.DrugSearch.trayImage)
                                 .resizable()
                                 .frame(width: 32, height: 32)
                             NavigationLink(destination: DrugDetailView(drug: DTOMapper.mapToDetailModel(from: drug))) {
                                 VStack(alignment: .leading){
-                                    Text("Drug Id: \(drug.id)").foregroundColor(.gray)
+                                    Text("\(AppConstants.DrugSearch.drugIdPrefix) \(drug.id)").foregroundColor(.gray)
                                     Text(drug.synonym ?? "")
                                 }
-                                
                             }
                         }
+                        .accessibilityIdentifier("\(AppConstants.DrugSearch.AccessibilityIdentifier.searchResultItemPrefix)\(drug.id)")
                     }
                 }
             }
+            .accessibilityIdentifier(AppConstants.DrugSearch.AccessibilityIdentifier.searchResultList)
         }
     }
 }
+
 
 struct SearchButtonView: View {
     var isLoading: Bool
@@ -47,13 +49,16 @@ struct SearchButtonView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .padding(.trailing, 8)
+                    .accessibilityIdentifier(AppConstants.DrugSearch.AccessibilityIdentifier.searchProgress)
             }
-            Text("Search")
+            Text(AppConstants.DrugSearch.searchButtonTitle)
                 .foregroundColor(.white)
         }
         .modifier(ButtonModifier(isLoading: isLoading, action: action))
+        .accessibilityIdentifier(AppConstants.DrugSearch.AccessibilityIdentifier.searchButton)
     }
 }
+
 
 
 struct DrugSearchView: View {
@@ -73,9 +78,10 @@ struct DrugSearchView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                         
-                        TextField("Search Medication", text: $viewModel.keyword)
+                        TextField(AppConstants.DrugSearch.searchPlaceholder, text: $viewModel.keyword)
                             .disableAutocorrection(true)
                             .focused($isFocused)
+                            .accessibilityIdentifier(AppConstants.DrugSearch.AccessibilityIdentifier.searchTextField)
                     }
                     .padding(.horizontal, 8)
                     .padding(.vertical, 8)
@@ -93,7 +99,6 @@ struct DrugSearchView: View {
                     Spacer(minLength: 80)
                 }
                 
-                
                 VStack {
                     Spacer()
                     SearchButtonView(isLoading: viewModel.isLoading) {
@@ -103,7 +108,7 @@ struct DrugSearchView: View {
                     .padding(.bottom, 16)
                 }
             }
-            .navigationTitle("Search Medication")
+            .navigationTitle(AppConstants.DrugSearch.navTitle)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .interactiveDismissDisabled()
@@ -112,14 +117,13 @@ struct DrugSearchView: View {
             }) {
                 HStack {
                     Image(systemName: "chevron.left")
-                    Text("Back")
+                    Text(AppConstants.DrugSearch.backButtonTitle)
                 }
-            })
+            }
+                .accessibilityIdentifier(AppConstants.DrugSearch.AccessibilityIdentifier.backButton))
         }
     }
 }
-
-
 
 
 private struct ButtonModifier: ViewModifier {

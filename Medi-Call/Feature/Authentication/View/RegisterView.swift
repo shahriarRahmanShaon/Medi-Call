@@ -13,18 +13,35 @@ struct RegisterView: View {
 
     var body: some View {
         VStack {
-            //Spacer()
-
-            Text("Create New Account")
+            Text(AppConstants.Register.title)
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(Color.blue)
                 .padding(.bottom, 40)
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerTitle)
 
             VStack(spacing: 16) {
-                FloatingLabelTextField(title: "Name", placeholder: "Alice", text: $viewModel.name)
-                FloatingLabelTextField(title: "Email", placeholder: "alice@email.com", text: $viewModel.email)
-                FloatingLabelTextField(title: "Password", placeholder: "••••••••", text: $viewModel.password, isSecure: true)
+                FloatingLabelTextField(
+                    title: AppConstants.Register.nameFieldTitle,
+                    placeholder: AppConstants.Register.namePlaceholder,
+                    text: $viewModel.name
+                )
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.nameField)
+
+                FloatingLabelTextField(
+                    title: AppConstants.Register.emailFieldTitle,
+                    placeholder: AppConstants.Register.emailPlaceholder,
+                    text: $viewModel.email
+                )
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.emailField)
+
+                FloatingLabelTextField(
+                    title: AppConstants.Register.passwordFieldTitle,
+                    placeholder: AppConstants.Register.passwordPlaceholder,
+                    text: $viewModel.password,
+                    isSecure: true
+                )
+                .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.passwordField)
             }
             .padding(.horizontal)
 
@@ -37,8 +54,9 @@ struct RegisterView: View {
                     ProgressView()
                         .frame(maxWidth: .infinity)
                         .padding()
+                        .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerProgress)
                 } else {
-                    Text("Create Account")
+                    Text(AppConstants.Register.createAccountButtonTitle)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .foregroundColor(.white)
@@ -46,17 +64,19 @@ struct RegisterView: View {
                         .cornerRadius(14)
                 }
             }
+            .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerButton)
             .padding(.horizontal)
             .padding(.bottom, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
         .navigationBarBackButtonHidden(true)
-        .alert("Registration Error", isPresented: $viewModel.showAlert, actions: {
-            Button("OK", role: .cancel) { }
+        .alert(AppConstants.Register.registrationErrorTitle, isPresented: $viewModel.showAlert, actions: {
+            Button(AppConstants.Register.alertDismissButtonTitle, role: .cancel) { }
         }, message: {
-            Text(viewModel.errorMessage ?? "Something went wrong")
+            Text(viewModel.errorMessage ?? AppConstants.Register.registrationErrorFallbackMessage)
         })
+        .accessibilityIdentifier(AppConstants.Register.AccessibilityIdentifier.registerAlert)
         .onReceive(viewModel.$isAuthenticated) { isAuth in
             if isAuth {
                 coordinator.replace(with: .dashboard)

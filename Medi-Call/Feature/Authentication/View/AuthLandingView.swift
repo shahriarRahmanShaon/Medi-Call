@@ -13,11 +13,11 @@ struct AuthLandingView: View {
     var body: some View {
         VStack {
             Spacer()
-
-            Image("Catalog")
+            Image(AppConstants.AuthLanding.catalogImageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
+                .accessibilityIdentifier(AppConstants.AuthLanding.AccessibilityIdentifier.catalogImage)
 
             Spacer()
 
@@ -25,7 +25,7 @@ struct AuthLandingView: View {
                 Button(action: {
                     coordinator.push(.register)
                 }) {
-                    Text("Create New Account")
+                    Text(AppConstants.AuthLanding.createAccountTitle)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -33,15 +33,17 @@ struct AuthLandingView: View {
                         .background(Color.blue)
                         .cornerRadius(14)
                 }
+                .accessibilityIdentifier(AppConstants.AuthLanding.AccessibilityIdentifier.createAccountButton)
 
                 Button(action: {
                     coordinator.push(.login)
                 }) {
-                    Text("I already have an account")
+                    Text(AppConstants.AuthLanding.loginTitle)
                         .font(.footnote)
                         .foregroundColor(.blue)
                         .padding(.top, 4)
                 }
+                .accessibilityIdentifier(AppConstants.AuthLanding.AccessibilityIdentifier.loginButton)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 40)
@@ -50,7 +52,3 @@ struct AuthLandingView: View {
         .background(Color("background"))
     }
 }
-
-
-
-

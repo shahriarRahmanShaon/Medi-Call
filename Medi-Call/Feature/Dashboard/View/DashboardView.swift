@@ -17,26 +17,28 @@ struct DashboardView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text("My Medications")
+                Text(AppConstants.Dashboard.title)
                     .font(.title).bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
+                    .accessibilityIdentifier(AppConstants.Dashboard.AccessibilityIdentifier.title)
                 
                 if viewModel.savedMeds.isEmpty {
-                    Text("No saved medications.")
+                    Text(AppConstants.Dashboard.emptyStateMessage)
                         .foregroundColor(.gray)
                         .padding()
+                        .accessibilityIdentifier(AppConstants.Dashboard.AccessibilityIdentifier.emptyStateText)
                 } else {
                     List {
                         ForEach(viewModel.savedMeds, id: \.id) { med in
                             HStack {
-                                Image("icnTray")
+                                Image(AppConstants.Dashboard.ImageName.trayIcon)
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(.orange)
                                 
                                 VStack(alignment: .leading) {
-                                    Text("Drug Id: \(med.id)").foregroundColor(.gray)
+                                    Text("\(AppConstants.Dashboard.drugIdPrefix) \(med.id)").foregroundColor(.gray)
                                     if let synonym = med.synonym {
                                         Text(synonym)
                                             .font(.subheadline)
@@ -44,6 +46,7 @@ struct DashboardView: View {
                                 }
                             }
                             .padding(.vertical, 4)
+                            .accessibilityIdentifier("\(AppConstants.Dashboard.AccessibilityIdentifier.medicationCell)_\(med.id)")
                         }
                         .onDelete { indexSet in
                             indexSet.forEach { index in
@@ -61,13 +64,14 @@ struct DashboardView: View {
                 Button(action: {
                     showSearch.toggle()
                 }) {
-                    Label("Search Medications", systemImage: "plus.circle.fill")
+                    Label(AppConstants.Dashboard.searchButtonTitle, systemImage: "plus.circle.fill")
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.blue)
                         .cornerRadius(12)
                 }
+                .accessibilityIdentifier(AppConstants.Dashboard.AccessibilityIdentifier.searchButton)
                 .padding(.horizontal)
                 .padding(.bottom, 20)
                 .sheet(isPresented: $showSearch, onDismiss: {
@@ -82,8 +86,3 @@ struct DashboardView: View {
         .navigationBarBackButtonHidden(true)
     }
 }
-
-
-
-
-

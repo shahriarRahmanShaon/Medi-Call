@@ -24,38 +24,40 @@ struct DrugDetailView: View {
                     .frame(width: 60, height: 60)
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color.clear, lineWidth: 4))
+                    .accessibilityIdentifier("drugDetailImage")
                 
                 Text(viewModel.drug.name)
                     .font(.headline)
                     .fontWeight(.bold)
                     .padding(.leading, 10)
+                    .accessibilityIdentifier("drugDetailName")
             }
             .padding()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     if let synonym = viewModel.drug.synonym {
-                        DrugDetailRow(title: "Synonym", value: synonym)
+                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.synonym, value: synonym)
                     }
 
                     if let tty = viewModel.drug.tty {
-                        DrugDetailRow(title: "TTY", value: tty)
+                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.tty, value: tty)
                     }
 
                     if let language = viewModel.drug.language {
-                        DrugDetailRow(title: "Language", value: language)
+                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.language, value: language)
                     }
 
                     if let suppress = viewModel.drug.suppress {
-                        DrugDetailRow(title: "Suppress", value: suppress)
+                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.suppress, value: suppress)
                     }
 
                     if let umlscui = viewModel.drug.umlscui {
-                        DrugDetailRow(title: "UMLS CUI", value: umlscui)
+                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.umlscui, value: umlscui)
                     }
                 }
                 .padding()
-                .frame(width: UIScreen.main.bounds.width-40)
+                .frame(width: UIScreen.main.bounds.width - 40)
                 .background(Color.white)
                 .cornerRadius(12)
                 .shadow(radius: 1)
@@ -74,9 +76,13 @@ struct DrugDetailView: View {
             }
         }
         .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Success"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+            Alert(
+                title: Text(AppConstants.DrugDetail.alertTitle),
+                message: Text(viewModel.alertMessage),
+                dismissButton: .default(Text(AppConstants.DrugDetail.alertDismiss))
+            )
         }
-        .navigationTitle("Details")
+        .navigationTitle(AppConstants.DrugDetail.navTitle)
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled()
     }
@@ -92,10 +98,12 @@ struct DrugDetailRow: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .frame(width: 100, alignment: .leading)
+
             Text(value)
                 .font(.subheadline)
                 .foregroundColor(.black)
         }
+        .accessibilityIdentifier("\(AppConstants.DrugDetail.AccessibilityIdentifier.rowPrefix)\(title)")
     }
 }
 
@@ -110,8 +118,9 @@ struct AddToListButton: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .frame(width: 20, height: 20)
+                        .accessibilityIdentifier(AppConstants.DrugDetail.AccessibilityIdentifier.addProgress)
                 } else {
-                    Text("Add Medication to List")
+                    Text(AppConstants.DrugDetail.addToList)
                         .font(.body)
                         .bold()
                 }
@@ -123,8 +132,10 @@ struct AddToListButton: View {
             .cornerRadius(12)
             .disabled(isLoading)
         }
+        .accessibilityIdentifier(AppConstants.DrugDetail.AccessibilityIdentifier.addButton)
     }
 }
+
 
 
 
