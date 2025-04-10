@@ -10,6 +10,10 @@ import SwiftUI
 struct DashboardView: View {
     @State private var showSearch = false
     @StateObject private var viewModel = DashboardViewModel()
+    @State private var showReminderSheet = false
+    @State private var selectedMed: MedicineEntity?
+    @State private var reminderTime = Date()
+
     
     var body: some View {
         ZStack {
@@ -80,6 +84,14 @@ struct DashboardView: View {
                     DrugSearchView()
                         .environmentObject(viewModel)
                 }
+                .sheet(isPresented: $showReminderSheet) {
+                    MedicineReminderSheet(
+                        selectedMed: $selectedMed,
+                        reminderTime: $reminderTime,
+                        medicines: viewModel.savedMeds
+                    )
+                }
+
             }
         }
         .navigationBarHidden(true)
