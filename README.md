@@ -27,7 +27,8 @@
 | Memory Management     | Used Welk self and Unowned self where needed specially during long service calls|
 | Testing               | Tested Dashboard viewmodel and Mock repository for testing|
 | Accessibility         | Added accessibilty inspector on multiple components so that it can be used during accessibility options|
-| Animation              | Animation added specially table list operations|
+| Animation             | Animation added specially table list operations|
+| Documentation         | DocC documentation for methods understanding and overview|
 
 ## 🛠️ Future Tech Updatable areas
 - Use more combine features like passthroughsubject and others
