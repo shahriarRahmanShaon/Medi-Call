@@ -16,62 +16,64 @@ struct DrugDetailView: View {
     }
 
     var body: some View {
-        VStack {
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+
             VStack {
-                Image(AppConstants.Dashboard.ImageName.trayIcon)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.clear, lineWidth: 4))
-                    .accessibilityIdentifier("drugDetailImage")
-                
-                Text(viewModel.drug.name)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .padding(.leading, 10)
-                    .accessibilityIdentifier("drugDetailName")
-            }
-            .padding()
+                VStack {
+                    Image(AppConstants.Dashboard.ImageName.trayIcon)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.clear, lineWidth: 4))
+                        .accessibilityIdentifier("drugDetailImage")
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    if let synonym = viewModel.drug.synonym {
-                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.synonym, value: synonym)
-                    }
-
-                    if let tty = viewModel.drug.tty {
-                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.tty, value: tty)
-                    }
-
-                    if let language = viewModel.drug.language {
-                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.language, value: language)
-                    }
-
-                    if let suppress = viewModel.drug.suppress {
-                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.suppress, value: suppress)
-                    }
-
-                    if let umlscui = viewModel.drug.umlscui {
-                        DrugDetailRow(title: AppConstants.DrugDetail.Labels.umlscui, value: umlscui)
-                    }
+                    Text(viewModel.drug.name)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding(.leading, 10)
+                        .accessibilityIdentifier("drugDetailName")
                 }
                 .padding()
-                .frame(width: UIScreen.main.bounds.width - 40)
-                .background(Color.white)
-                .cornerRadius(12)
-                .shadow(radius: 1)
-                .padding(.horizontal)
-            }
-            .padding(.top)
 
-            Spacer()
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        if let synonym = viewModel.drug.synonym {
+                            DrugDetailRow(title: AppConstants.DrugDetail.Labels.synonym, value: synonym)
+                        }
 
-            ZStack {
+                        if let tty = viewModel.drug.tty {
+                            DrugDetailRow(title: AppConstants.DrugDetail.Labels.tty, value: tty)
+                        }
+
+                        if let language = viewModel.drug.language {
+                            DrugDetailRow(title: AppConstants.DrugDetail.Labels.language, value: language)
+                        }
+
+                        if let suppress = viewModel.drug.suppress {
+                            DrugDetailRow(title: AppConstants.DrugDetail.Labels.suppress, value: suppress)
+                        }
+
+                        if let umlscui = viewModel.drug.umlscui {
+                            DrugDetailRow(title: AppConstants.DrugDetail.Labels.umlscui, value: umlscui)
+                        }
+                    }
+                    .padding()
+                    .frame(width: UIScreen.main.bounds.width - 32)
+                    .background(Color.white)
+                    .cornerRadius(12)
+                    .padding(.top)
+                    .padding(.bottom, 30)
+                }
+
+                Spacer()
+
                 AddToListButton(isLoading: viewModel.isLoading) {
                     viewModel.addToLocalDatabase()
                 }
-                .padding([.leading, .trailing], 20)
+                .padding([.horizontal], 20)
                 .padding(.bottom, 10)
             }
         }
@@ -86,6 +88,7 @@ struct DrugDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled()
     }
+
 }
 
 struct DrugDetailRow: View {
