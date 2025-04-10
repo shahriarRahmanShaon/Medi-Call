@@ -1,0 +1,42 @@
+# Xcode project user data
+*.xcuserstate
+*.xcworkspace
+*.xcscmblueprint
+*.xccheckout
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata
+
+# Build & derived data
+DerivedData/
+build/
+*.ipa
+*.app
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/package.xcworkspace/
+Package.resolved
+
+# Firebase (Sensitive file)
+GoogleService-Info.plist
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*.orig
+
+# Logs
+*.log
+
+# Previews & snapshots
+PreviewContent/
+__Snapshots__/
+
+# Env files (if using local secrets)
+.env
+.env.*
+
+# AppCode or JetBrains IDEs
+.idea/
