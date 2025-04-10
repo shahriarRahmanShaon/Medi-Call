@@ -1,8 +1,14 @@
 # Medi-Call
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d2dd43eb-9603-4967-a36d-da195540e78b" width="200" />
+</p>
+
+
 **Medi-Call** is a modern SwiftUI-based iOS application designed to help users **manage their medications**. Built with a **MVVM architecture and Coordinator Pattern** and Firebase Authentication, Medi-Call delivers a sleek, intuitive, and accessible experience.
 
 ---
+
 
 ## 🌟 Features
 
