@@ -9,15 +9,27 @@ import SwiftUI
 
 struct CoordinatorView: View {
     @StateObject var coordinator = AppCoordinator()
+    @StateObject var authViewModel = AuthViewModel()
 
     var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            coordinator.view(for: .authLanding)
-                .navigationDestination(for: Route.self) { route in
-                    coordinator.view(for: route)
+        Group {
+            if authViewModel.didCheckAuthState {
+                NavigationStack(path: $coordinator.path) {
+                    coordinator.view(for: authViewModel.isAuthenticated ? .dashboard : .authLanding)
+                        .navigationDestination(for: Route.self) { route in
+                            coordinator.view(for: route)
+                        }
                 }
+                .environmentObject(coordinator)
+                .environmentObject(authViewModel)
+            } else {
+                ProgressView()
+            }
         }
-        .environmentObject(coordinator)
+        .onAppear {
+            authViewModel.checkAuthState()
+        }
     }
 }
+
 

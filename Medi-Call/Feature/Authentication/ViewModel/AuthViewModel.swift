@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import FirebaseAuth
 
 class AuthViewModel: ObservableObject {
     @Published var email = ""
@@ -16,6 +17,7 @@ class AuthViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var isAuthenticated = false
     @Published var errorMessage: String?
+    @Published var didCheckAuthState = false
 
     private let repository: AuthRepository
     private var cancellables = Set<AnyCancellable>()
@@ -23,6 +25,16 @@ class AuthViewModel: ObservableObject {
     init(repository: AuthRepository = AuthRepositoryImpl()) {
         self.repository = repository
     }
+    
+    func checkAuthState() {
+            if let _ = Auth.auth().currentUser {
+                isAuthenticated = true
+            } else {
+                isAuthenticated = false
+            }
+            didCheckAuthState = true
+        }
+
 
     func register() {
         isLoading = true
