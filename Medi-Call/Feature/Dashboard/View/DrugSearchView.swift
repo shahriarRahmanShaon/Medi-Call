@@ -57,30 +57,47 @@ struct DrugSearchView: View {
     @EnvironmentObject var coordinator: AppCoordinator
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
-    
+
     var body: some View {
         NavigationView {
-            VStack {
-                TextField("Search Medication", text: $viewModel.keyword)
-                    .padding(.horizontal, 10)
+            ZStack {
+                Color(.systemGroupedBackground)
+                    .ignoresSafeArea()
+
+                VStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+
+                        TextField("Search Medication", text: $viewModel.keyword)
+                            .disableAutocorrection(true)
+                            .focused($isFocused)
+                    }
+                    .padding(.horizontal, 8)
                     .padding(.vertical, 8)
+                    .background(Color.gray.opacity(0.3))
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(isFocused ? Color.blue : Color.gray, lineWidth: 0.1)
                     )
-                    .focused($isFocused)
                     .padding(.horizontal)
                     .padding(.top)
-                
-                SearchResultsView(results: viewModel.results)
-                if isFocused {
+
+                    SearchResultsView(results: viewModel.results)
+
+                    Spacer(minLength: 80)
+                }
+
+
+                VStack {
+                    Spacer()
                     SearchButtonView(isLoading: viewModel.isLoading) {
                         viewModel.searchDrugs()
+                        isFocused = false
                     }
-                    .padding(.bottom)
+                    .padding(.bottom, 16)
                 }
-                Spacer()
             }
             .navigationTitle("Search Medication")
             .navigationBarTitleDisplayMode(.inline)
@@ -97,6 +114,8 @@ struct DrugSearchView: View {
         }
     }
 }
+
+
 
 
 private struct ButtonModifier: ViewModifier {

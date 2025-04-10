@@ -33,11 +33,9 @@ class AuthViewModel: ObservableObject {
             return
         }
 
-        // Force token refresh to validate session with Firebase
         user.getIDTokenResult(forcingRefresh: true) { [weak self] result, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    // Invalid session — probably deleted
                     print("Token refresh failed: \(error.localizedDescription)")
                     self?.isAuthenticated = false
                 } else {
