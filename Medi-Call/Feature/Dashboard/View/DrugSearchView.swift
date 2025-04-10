@@ -23,7 +23,11 @@ struct SearchResultsView: View {
                                 .resizable()
                                 .frame(width: 32, height: 32)
                             NavigationLink(destination: DrugDetailView(drug: DTOMapper.mapToDetailModel(from: drug))) {
-                                Text(drug.synonym ?? "")
+                                VStack(alignment: .leading){
+                                    Text("Drug Id: \(drug.id)").foregroundColor(.gray)
+                                    Text(drug.synonym ?? "")
+                                }
+                                
                             }
                         }
                     }

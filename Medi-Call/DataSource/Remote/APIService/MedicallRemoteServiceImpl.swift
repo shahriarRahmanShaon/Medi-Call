@@ -23,7 +23,8 @@ struct MedicallRemoteServiceImpl: MedicallRemoteService {
         }
 
         components.queryItems = [
-            URLQueryItem(name: "name", value: keyword)
+            URLQueryItem(name: "name", value: keyword),
+            URLQueryItem(name: "expand", value: "psn")
         ]
 
         guard let url = components.url else {
@@ -36,8 +37,11 @@ struct MedicallRemoteServiceImpl: MedicallRemoteService {
                 dto.drugGroup.conceptGroup?
                     .compactMap { $0.conceptProperties }
                     .flatMap { $0 }
+                    .prefix(10)
+                    .map { $0 }
                 ?? []
             }
             .eraseToAnyPublisher()
     }
+
 }

@@ -22,7 +22,9 @@ struct APIClient: DataFetcher {
     }
 
     func request(url: URL) -> AnyPublisher<Data, Error> {
-        session.dataTaskPublisher(for: url)
+        print("[Medi-Call Client] Making request to URL: \(url.absoluteString)")
+
+        return session.dataTaskPublisher(for: url)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .tryMap { result -> Data in
                 guard let response = result.response as? HTTPURLResponse,
@@ -34,13 +36,14 @@ struct APIClient: DataFetcher {
             .receive(on: DispatchQueue.main)
             .retry(2)
             .mapError { error -> Error in
-                if let decodingError = error as? DecodingError {
+                if let _ = error as? DecodingError {
                     return APIError.decodingError
                 }
                 return error
             }
             .eraseToAnyPublisher()
     }
+
 }
 
 
