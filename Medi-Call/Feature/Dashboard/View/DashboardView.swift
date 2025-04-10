@@ -36,12 +36,10 @@ struct DashboardView: View {
                                     .foregroundColor(.orange)
 
                                 VStack(alignment: .leading) {
-                                    Text(med.name)
-                                        .font(.headline)
+                                    Text("Drug Id: \(med.id)").foregroundColor(.gray)
                                     if let synonym = med.synonym {
                                         Text(synonym)
                                             .font(.subheadline)
-                                            .foregroundColor(.secondary)
                                     }
                                 }
                             }
