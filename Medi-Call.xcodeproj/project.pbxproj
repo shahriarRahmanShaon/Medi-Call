@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2519B9282DA69CFE00E4F438 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2519B9272DA69CFE00E4F438 /* RealmSwift */; };
 		2519B92B2DA69DF800E4F438 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2519B9272DA69CFE00E4F438 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2519B9C52DA75D8B00E4F438 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2519B9C42DA75D8B00E4F438 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2519B9282DA69CFE00E4F438 /* RealmSwift in Frameworks */,
+				2519B9C52DA75D8B00E4F438 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				2519B8882DA66BBF00E4F438 /* Medi-Call */,
+				2519B9C62DA75E5400E4F438 /* Frameworks */,
 				2519B8872DA66BBF00E4F438 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,6 +66,13 @@
 				2519B8862DA66BBF00E4F438 /* Medi-Call.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2519B9C62DA75E5400E4F438 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +97,7 @@
 			name = "Medi-Call";
 			packageProductDependencies = (
 				2519B9272DA69CFE00E4F438 /* RealmSwift */,
+				2519B9C42DA75D8B00E4F438 /* FirebaseAuth */,
 			);
 			productName = "Medi-Call";
 			productReference = 2519B8862DA66BBF00E4F438 /* Medi-Call.app */;
@@ -118,6 +129,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				2519B9242DA69CFE00E4F438 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				2519B9C32DA75D8B00E4F438 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2519B8872DA66BBF00E4F438 /* Products */;
@@ -359,6 +371,14 @@
 				kind = branch;
 			};
 		};
+		2519B9C32DA75D8B00E4F438 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -366,6 +386,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2519B9242DA69CFE00E4F438 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		2519B9C42DA75D8B00E4F438 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2519B9C32DA75D8B00E4F438 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
