@@ -15,7 +15,7 @@ struct CoordinatorView: View {
         Group {
             if authViewModel.didCheckAuthState {
                 NavigationStack(path: $coordinator.path) {
-                    coordinator.view(for: .authLanding)
+                    coordinator.view(for: authViewModel.isAuthenticated ? .dashboard : .authLanding)
                         .navigationDestination(for: Route.self) { route in
                             coordinator.view(for: route)
                         }
