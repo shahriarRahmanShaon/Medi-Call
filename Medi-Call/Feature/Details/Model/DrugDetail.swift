@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DrugDetail: Identifiable {
+struct DrugDetail: Identifiable, Hashable {
     let id: String
     let name: String
     let synonym: String?

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchResultsView: View {
+    @EnvironmentObject var coordinator: AppCoordinator
     var results: [DrugDTO]
     
     var body: some View {
@@ -53,6 +54,7 @@ struct SearchButtonView: View {
 
 struct DrugSearchView: View {
     @EnvironmentObject private var viewModel: DashboardViewModel
+    @EnvironmentObject var coordinator: AppCoordinator
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
     
