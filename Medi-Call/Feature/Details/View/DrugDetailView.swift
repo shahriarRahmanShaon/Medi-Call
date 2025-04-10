@@ -18,7 +18,7 @@ struct DrugDetailView: View {
     var body: some View {
         VStack {
             VStack {
-                Image("icnTray")
+                Image(AppConstants.Dashboard.ImageName.trayIcon)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
