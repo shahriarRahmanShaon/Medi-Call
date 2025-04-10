@@ -40,3 +40,4 @@ __Snapshots__/
 
 # AppCode or JetBrains IDEs
 .idea/
+GoogleService-Info.plist
