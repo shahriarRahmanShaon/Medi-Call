@@ -12,39 +12,52 @@ struct RegisterView: View {
     @EnvironmentObject var coordinator: AppCoordinator
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack {
+            //Spacer()
+
             Text("Create New Account")
                 .font(.title2)
-                .bold()
-                .padding()
+                .fontWeight(.bold)
+                .foregroundColor(Color.blue)
+                .padding(.bottom, 40)
 
-            TextField("Name", text: $viewModel.name)
-                .textFieldStyle(.roundedBorder)
+            VStack(spacing: 16) {
+                FloatingLabelTextField(title: "Name", placeholder: "Alice", text: $viewModel.name)
+                FloatingLabelTextField(title: "Email", placeholder: "alice@email.com", text: $viewModel.email)
+                FloatingLabelTextField(title: "Password", placeholder: "••••••••", text: $viewModel.password, isSecure: true)
+            }
+            .padding(.horizontal)
 
-            TextField("Email", text: $viewModel.email)
-                .textFieldStyle(.roundedBorder)
+            Spacer()
 
-            SecureField("Create a password", text: $viewModel.password)
-                .textFieldStyle(.roundedBorder)
-
-            Button {
+            Button(action: {
                 viewModel.register()
-            } label: {
+            }) {
                 if viewModel.isLoading {
                     ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
                 } else {
                     Text("Create Account")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(14)
                 }
             }
-            .buttonStyle(.borderedProminent)
+            .padding(.horizontal)
+            .padding(.bottom, 30)
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .navigationBarBackButtonHidden(true)
         .alert("Registration Error", isPresented: $viewModel.showAlert, actions: {
             Button("OK", role: .cancel) { }
         }, message: {
             Text(viewModel.errorMessage ?? "Something went wrong")
         })
-        .onChange(of: viewModel.isAuthenticated) { isAuth in
+        .onReceive(viewModel.$isAuthenticated) { isAuth in
             if isAuth {
                 coordinator.replace(with: .dashboard)
             }

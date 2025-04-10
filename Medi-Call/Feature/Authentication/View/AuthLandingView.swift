@@ -11,30 +11,46 @@ struct AuthLandingView: View {
     @EnvironmentObject var coordinator: AppCoordinator
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack {
             Spacer()
-            Image(systemName: "c.circle.fill")
+
+            Image("Catalog")
                 .resizable()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.blue)
+                .scaledToFit()
+                .frame(width: 120, height: 120)
 
             Spacer()
 
-            Button("Create New Account") {
-                coordinator.push(.register)
-            }
-            .buttonStyle(.borderedProminent)
+            VStack(spacing: 12) {
+                Button(action: {
+                    coordinator.push(.register)
+                }) {
+                    Text("Create New Account")
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(14)
+                }
 
-            Button("I already have an account") {
-                coordinator.push(.login)
+                Button(action: {
+                    coordinator.push(.login)
+                }) {
+                    Text("I already have an account")
+                        .font(.footnote)
+                        .foregroundColor(.blue)
+                        .padding(.top, 4)
+                }
             }
-            .font(.footnote)
-            .foregroundColor(.blue)
-
-            Spacer()
+            .padding(.horizontal, 24)
+            .padding(.bottom, 40)
         }
-        .padding()
-        .background(Color(.systemGroupedBackground))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("background"))
     }
 }
+
+
+
 

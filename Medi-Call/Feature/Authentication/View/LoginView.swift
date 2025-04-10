@@ -12,36 +12,48 @@ struct LoginView: View {
     @EnvironmentObject var coordinator: AppCoordinator
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             Text("Login")
                 .font(.title2)
-                .bold()
-                .padding()
+                .fontWeight(.bold)
+                .foregroundColor(.blue)
 
-            TextField("Email", text: $viewModel.email)
-                .textFieldStyle(.roundedBorder)
+            VStack(spacing: 16) {
+                FloatingLabelTextField(title: "Email", placeholder: "example@gmail.com", text: $viewModel.email)
+                FloatingLabelTextField(title: "Create a password", placeholder: "••••••••", text: $viewModel.password, isSecure: true)
+            }
+            .padding(.horizontal)
 
-            SecureField("Create a password", text: $viewModel.password)
-                .textFieldStyle(.roundedBorder)
+            Spacer()
 
-            Button {
+            Button(action: {
                 viewModel.login()
-            } label: {
+            }) {
                 if viewModel.isLoading {
                     ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
                 } else {
                     Text("Log In")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(14)
                 }
             }
-            .buttonStyle(.borderedProminent)
+            .padding(.horizontal)
+            .padding(.bottom, 20)
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
+        .navigationBarBackButtonHidden(true)
         .alert("Login Error", isPresented: $viewModel.showAlert, actions: {
             Button("OK", role: .cancel) { }
         }, message: {
             Text(viewModel.errorMessage ?? "Something went wrong")
         })
-        .onChange(of: viewModel.isAuthenticated) { isAuth in
+        .onReceive(viewModel.$isAuthenticated) { isAuth in
             if isAuth {
                 coordinator.replace(with: .dashboard)
             }
