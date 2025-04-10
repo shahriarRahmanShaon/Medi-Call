@@ -22,6 +22,20 @@ class DrugDetailViewModel: ObservableObject {
         self.repository = repository
     }
 
+    /// Adds the current drug to the local database.
+    ///
+    /// - Returns: Saves a `MedicineEntity` converted from the current `DrugDetail` to persistent storage and shows an alert upon completion.
+    /// - Discussion:
+    /// Converts the `drug` into a `MedicineEntity` and stores it using the repository. This method also triggers
+    /// UI feedback by toggling `isLoading`, `showAlert`, and `alertMessage`.
+    ///
+    /// ```swift
+    /// viewModel.addToLocalDatabase()
+    /// if viewModel.showAlert {
+    ///     print(viewModel.alertMessage) // "Data saved successfully"
+    /// }
+    /// ```
+    
     func addToLocalDatabase() {
         let entity = MedicineEntity(
             id: drug.id,

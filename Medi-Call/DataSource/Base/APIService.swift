@@ -21,6 +21,21 @@ struct APIClient: DataFetcher {
         self.decoder = decoder
     }
 
+    /// Sends a data request to the specified URL.
+    ///
+    /// - Parameter url: The `URL` to send the request to.
+    /// - Returns: A publisher that emits `Data` on success or an `Error` on failure.
+    /// - Discussion:
+    /// Handles background processing, retries, and response validation. Throws an error for non-2xx HTTP responses.
+    ///
+    /// ```swift
+    /// apiClient.request(url: someURL)
+    ///     .sink(receiveCompletion: { ... }, receiveValue: { data in
+    ///         // Use data
+    ///     })
+    ///     .store(in: &cancellables)
+    /// ```
+    ///
     func request(url: URL) -> AnyPublisher<Data, Error> {
         print("[Medi-Call Client] Making request to URL: \(url.absoluteString)")
 

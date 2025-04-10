@@ -23,14 +23,53 @@ class DashboardViewModel: ObservableObject {
         fetchSavedMeds()
     }
     
+    /// Fetches the list of saved medicines from the local repository.
+    ///
+    /// - Returns: Updates the `savedMeds` array with locally stored `MedicineEntity` objects.
+    /// - Discussion:
+    /// This method should be called when the dashboard loads to present the user's saved medicines.
+    ///
+    /// ```swift
+    /// viewModel.fetchSavedMeds()
+    /// ```
+    
     func fetchSavedMeds() {
         savedMeds = repository.getSavedDrugs()
     }
+    
+    /// Deletes a specific medicine from the local database.
+    ///
+    /// - Parameter entity: The `MedicineEntity` to be deleted.
+    /// - Returns: Refreshes the `savedMeds` list after deletion.
+    /// - Discussion:
+    /// After deletion, this method calls `fetchSavedMeds()` to keep the UI in sync with the data source.
+    ///
+    /// ```swift
+    /// let med = viewModel.savedMeds.first
+    /// if let med = med {
+    ///     viewModel.deleteDrug(med)
+    /// }
+    /// ```
+    ///
     
     func deleteDrug(_ entity: MedicineEntity) {
         repository.deleteDrug(entity)
         fetchSavedMeds()
     }
+    
+    
+    /// Performs a search for drugs using the current keyword.
+    ///
+    /// - Returns: Updates the `results` array with a list of matching `DrugDTO` objects.
+    /// - Discussion:
+    /// Triggers the repository’s `searchDrugs(keyword:)` method and handles asynchronous loading state.
+    /// Ideal for binding to a search field in the UI.
+    ///
+    /// ```swift
+    /// viewModel.keyword = "paracetamol"
+    /// viewModel.searchDrugs()
+    /// ```
+    ///
     
     func searchDrugs() {
         isLoading = true

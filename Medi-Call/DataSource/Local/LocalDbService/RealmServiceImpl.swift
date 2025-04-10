@@ -15,6 +15,10 @@ class RealmServiceImpl: RealmService {
         self.realm = databaseManager.getRealm()
     }
 
+    /// Saves an object to the Realm database.
+    ///
+    /// - Parameter object: The object to be saved. Must conform to `RealmSwift.Object`.
+    ///
     func save<T: Object>(_ object: T) {
         do {
             try realm.write {
@@ -26,11 +30,20 @@ class RealmServiceImpl: RealmService {
         }
     }
 
+    /// Fetches all objects of a specified type from the Realm database.
+    ///
+    /// - Parameter type: The object type to fetch.
+    /// - Returns: An array of all objects of the given type.
+    ///
     func fetchAll<T: Object>(_ type: T.Type) -> [T] {
         let results = realm.objects(type)
         return Array(results)
     }
     
+    /// Deletes an object from the Realm database.
+    ///
+    /// - Parameter object: The object to delete.
+    ///
     func delete<T: Object>(_ object: T) {
             do {
                 try realm.write {

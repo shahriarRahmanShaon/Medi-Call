@@ -17,6 +17,13 @@ struct MedicallRemoteServiceImpl: MedicallRemoteService {
         self.fetcher = fetcher
     }
 
+    /// Fetches a list of drugs matching a keyword from the RxNav API.
+    ///
+    /// - Parameter keyword: The drug name to search for.
+    /// - Returns: A publisher emitting an array of `DrugDTO` or an `Error`.
+    ///
+    /// - Note: Limits results to 10 items and expands the `psn` field in the query.
+    /// 
     func fetchDrugs(keyword: String) -> AnyPublisher<[DrugDTO], Error> {
         guard var components = URLComponents(string: baseURL) else {
             return Fail(error: APIError.badRequest).eraseToAnyPublisher()

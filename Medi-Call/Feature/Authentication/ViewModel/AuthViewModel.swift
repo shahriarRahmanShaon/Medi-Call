@@ -26,6 +26,19 @@ class AuthViewModel: ObservableObject {
         self.repository = repository
     }
     
+    /// Checks the current user's authentication state by verifying the Firebase ID token.
+    ///
+    /// 
+    /// - Discussion:
+    /// This method ensures authentication is valid by forcing a refresh of the user's ID token. This is especially
+    /// useful because iOS can cache sessions, leading to stale authentication states.
+    ///
+    /// ```swift
+    /// viewModel.checkAuthState()
+    /// if viewModel.isAuthenticated {
+    ///     // Navigate to dashboard
+    /// }
+    /// ```
     func checkAuthState() {
         guard let user = Auth.auth().currentUser else {
             isAuthenticated = false
@@ -47,7 +60,19 @@ class AuthViewModel: ObservableObject {
     }
 
     
-    
+    /// Registers a new user using the email and password provided in the view model's properties.
+    ///
+    /// 
+    /// - Discussion:
+    /// Calls the repository’s `signUp(email:password:)` method and handles the result on the main thread. Displays
+    /// an alert on error and enables loading indicators.
+    ///
+    /// ```swift
+    /// viewModel.email = "user@example.com"
+    /// viewModel.password = "securePassword123"
+    /// viewModel.register()
+    /// ```
+    ///
     func register() {
         isLoading = true
         repository.signUp(email: email, password: password) { [weak self] result in
@@ -63,6 +88,20 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    
+    /// Logs in the user using the provided email and password credentials.
+    ///
+    /// 
+    /// - Discussion:
+    /// Uses the repository’s `signIn(email:password:)` method. Upon success, it sets the `isAuthenticated` flag.
+    /// On failure, it shows an alert and stores the error message.
+    ///
+    /// ```swift
+    /// viewModel.email = "user@example.com"
+    /// viewModel.password = "securePassword123"
+    /// viewModel.login()
+    /// ```
+    ///
     
     func login() {
         isLoading = true

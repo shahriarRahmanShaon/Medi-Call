@@ -22,6 +22,10 @@ class AppCoordinator: Coordinator {
         path.removeLast(path.count)
     }
 
+    /// Replaces the current stack with a new route.
+    ///
+    /// - Parameter route: The new root route.
+    /// 
     func replace(with route: Route) {
         path = NavigationPath() 
         path.append(route)
